@@ -3,21 +3,22 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    /// <summary>
+    /// Control the star ship
+    /// </summary>
+    /// 
+    /// <remarks>
+    /// The ship can be controlled with the keyboard in a computer
+    /// or with the touch screen in a smartphone.
+    /// </remarks>
+    [AddComponentMenu("Yannick Baudraz/Simple Ship Controller")]
     public class SimpleShipController : MonoBehaviour
     {
         private Vector2 delta;
 
-        // Awake is called when the script instance is being loaded.
         [UsedImplicitly]
         private void Awake() => delta = Vector2.zero;
-        
-        // Start is called before the first frame update.
-        [UsedImplicitly]
-        private void Start()
-        {
-        }
 
-        // Update is called once per frame.
         [UsedImplicitly]
         private void Update()
         {
