@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts
 {
     /// <summary>
-    /// Control the star ship
+    /// Control the star ship. 
     /// </summary>
     /// 
     /// <remarks>
@@ -14,10 +14,10 @@ namespace Assets.Scripts
     [AddComponentMenu("Yannick Baudraz/Simple Ship Controller")]
     public class SimpleShipController : MonoBehaviour
     {
-        private Vector2 delta;
+        private Vector2 _delta = Vector2.zero;
 
         [UsedImplicitly]
-        private void Awake() => delta = Vector2.zero;
+        private void Awake() => _delta = Vector2.zero;
 
         [UsedImplicitly]
         private void Update()
@@ -30,7 +30,7 @@ namespace Assets.Scripts
                 {
                     Touch firstTouch = Input.GetTouch(0);
                     if (firstTouch.phase == TouchPhase.Moved)
-                        delta = new Vector2(
+                        _delta = new Vector2(
                             firstTouch.deltaPosition.x / (Screen.width * firstTouch.deltaTime),
                             firstTouch.deltaPosition.y / Screen.height / firstTouch.deltaTime / 2
                         );
@@ -39,20 +39,20 @@ namespace Assets.Scripts
                 {
                     Touch secondTouch = Input.GetTouch(1);
                     if (secondTouch.phase == TouchPhase.Moved)
-                        delta.x = secondTouch.deltaPosition.x / Screen.width / secondTouch.deltaTime * 5;
+                        _delta.x = secondTouch.deltaPosition.x / Screen.width / secondTouch.deltaTime * 5;
                 }
             }
             else
             {
-                delta = Vector2.zero;
+                _delta = Vector2.zero;
             }
             #else
-            delta.x = Input.GetAxis("Horizontal");
-            delta.y = Input.GetAxis("Vertical");
+            _delta.x = Input.GetAxis("Horizontal");
+            _delta.y = Input.GetAxis("Vertical");
             #endif
 
-            transform.Translate(0, delta.y, 0);
-            transform.Rotate(0, 0, -delta.x);
+            transform.Translate(0, _delta.y, 0);
+            transform.Rotate(0, 0, -_delta.x);
         }
     }
 }

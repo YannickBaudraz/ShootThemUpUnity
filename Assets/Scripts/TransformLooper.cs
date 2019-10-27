@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts
 {
     /// <summary>
-    /// Loop the position of the object in a rectangular area
+    /// Loop the position of the object in a rectangular area.
     /// </summary>
     /// 
     /// <remarks>
@@ -14,25 +14,23 @@ namespace Assets.Scripts
     [AddComponentMenu("Yannick Baudraz/Transform Looper")]
     public class TransformLooper : MonoBehaviour
     {
-        private Rect area;
-
-        [UsedImplicitly]
-        private void Awake() => area = new Rect(0, 0, 10, 10);
+        public GameArea _gameArea;
+        private Vector3 _areaSpacePosition;
 
         [UsedImplicitly]
         private void Update()
         {
-            Vector3 position = transform.position;
+            _areaSpacePosition = _gameArea.transform.InverseTransformPoint(transform.position);
 
-            if (area.Contains(position)) return;
+            if (_gameArea.Area.Contains(_areaSpacePosition)) return;
 
-            if (position.x < area.xMin) position.x = area.xMax;
-            else if (position.x > area.xMax) position.x = area.xMin;
+            if (_areaSpacePosition.x < _gameArea.Area.xMin) _areaSpacePosition.x = _gameArea.Area.xMax;
+            else if (_areaSpacePosition.x > _gameArea.Area.xMax) _areaSpacePosition.x = _gameArea.Area.xMin;
 
-            if (position.y < area.yMin) position.y = area.yMax;
-            else if (position.y > area.yMax) position.y = area.yMin;
+            if (_areaSpacePosition.y < _gameArea.Area.yMin) _areaSpacePosition.y = _gameArea.Area.yMax;
+            else if (_areaSpacePosition.y > _gameArea.Area.yMax) _areaSpacePosition.y = _gameArea.Area.yMin;
 
-            transform.position = position;
+            transform.position = _gameArea.transform.TransformPoint(_areaSpacePosition);
         }
     }
 }
