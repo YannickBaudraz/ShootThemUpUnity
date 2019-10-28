@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts
 {
     /// <summary>
-    /// Represent the area of the game.
+    /// Represent a rectangular game area.
     /// </summary>
     [AddComponentMenu("Yannick Baudraz/Game Area")]
     public class GameArea : MonoBehaviour

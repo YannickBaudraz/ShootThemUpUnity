@@ -12,7 +12,7 @@ namespace Assets.Scripts
     /// it returns to the left edge.
     /// </remarks>
     [AddComponentMenu("Yannick Baudraz/Transform Looper")]
-    public class TransformLooper : MonoBehaviour
+    public class GameAreaKeeper : MonoBehaviour
     {
         public GameArea _gameArea;
         private Vector3 _areaSpacePosition;
