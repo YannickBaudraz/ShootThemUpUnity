@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.ComponentModel;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -16,7 +17,8 @@ namespace Assets.Scripts
         public Color gizmoColor = new Color(0, 0, 1, 0.3f);
         private Color _gizmoWireColor = new Color(0, 0, 1, 0.3f);
 
-        private Vector2 _size;
+        [SerializeField]
+        internal Vector2 _size = Vector2.zero;
         public Vector2 Size
         {
             get => Area.size;

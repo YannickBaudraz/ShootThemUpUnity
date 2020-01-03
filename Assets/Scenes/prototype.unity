@@ -267,8 +267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 1368655203}
-  rate: 1
+  rate: 6
   number: 4
+  infinite: 1
 --- !u!4 &448545593
 Transform:
   m_ObjectHideFlags: 0
