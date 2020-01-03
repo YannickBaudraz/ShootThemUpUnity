@@ -267,9 +267,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 1368655203}
-  rate: 6
-  number: 4
+  minRate: 0.5
+  maxRate: 5
+  number: 5
   infinite: 1
+  area: {fileID: 1178978350}
 --- !u!4 &448545593
 Transform:
   m_ObjectHideFlags: 0
@@ -278,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448545591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.72, y: 4.41, z: -9.630559}
+  m_LocalPosition: {x: 0.72, y: 2.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -395,6 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gizmoColor: {r: 0, g: 0, b: 1, a: 0.3}
+  _size: {x: 8.46, y: 11.23}
 --- !u!4 &1178978351
 Transform:
   m_ObjectHideFlags: 0
@@ -403,7 +406,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178978349}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

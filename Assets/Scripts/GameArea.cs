@@ -27,6 +27,8 @@ namespace Assets.Scripts
 
         #endregion
 
+        #region Unity methods
+
         [UsedImplicitly]
         private void OnValidate()
         {
@@ -50,6 +52,19 @@ namespace Assets.Scripts
                 new Vector3(Area.center.x, Area.center.y, 0),
                 new Vector3(Area.width, Area.height, 0)
             );
+        }
+
+        #endregion
+
+        public Vector3 GetRandomPosition()
+        {
+            Vector3 vector3 = new Vector3(
+                Random.Range(Area.xMin, Area.xMax),
+                Random.Range(Area.yMin, Area.yMax)
+            );
+            vector3 = transform.TransformPoint(vector3);
+
+            return vector3;
         }
     }
 }
