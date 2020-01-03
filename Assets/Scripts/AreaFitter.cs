@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         private void FitToCamera(Camera camera)
         {
-            Area.SetArea(new Vector2(camera.aspect * camera.orthographicSize * 2, camera.orthographicSize * 2));
+            Area.Size = new Vector2(camera.aspect * camera.orthographicSize * 2, camera.orthographicSize * 2);
             transform.position = camera.transform.position;
             transform.rotation = camera.transform.rotation;
         }

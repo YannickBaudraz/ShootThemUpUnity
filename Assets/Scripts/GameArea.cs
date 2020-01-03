@@ -9,17 +9,26 @@ namespace Assets.Scripts
     [AddComponentMenu("Yannick Baudraz/Game Area")]
     public class GameArea : MonoBehaviour
     {
+        #region Attributes
+
         public Rect Area { get; private set; } = new Rect(0, 0, 10, 10);
-        public Vector2 size;
+
         public Color gizmoColor = new Color(0, 0, 1, 0.3f);
         private Color _gizmoWireColor = new Color(0, 0, 1, 0.3f);
 
-        public void SetArea(Vector2 size) => Area = new Rect(size.x * -0.5f, size.y * -0.5f, size.x, size.y);
+        private Vector2 _size;
+        public Vector2 Size
+        {
+            get => Area.size;
+            set => Area = new Rect(value.x * -0.5f, value.y * -0.5f, value.x, value.y);
+        }
+
+        #endregion
 
         [UsedImplicitly]
         private void OnValidate()
         {
-            SetArea(size);
+            Size = _size;
             _gizmoWireColor = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b);
         }
 
