@@ -14,18 +14,24 @@ namespace Assets.Scripts
         public GameObject reference;
 
         [Header("SPAWNING")]
-        [Range(0.001f, 100f)] public float minRate = 1.0f;
-        [Range(0.001f, 100f)] public float maxRate = 1.0f;
+        [Range(0.001f, 10f)] public float minRate = 1.0f;
+        [Range(0.001f, 10f)] public float maxRate = 1.0f;
         private float lastRateChanged = 1.0f;
-        public int number;
-        public bool infinite;
-
+        public int number = 5;
+        public bool infinite = true;
         private int _remainingObjects;
 
         [Header("LOCATIONS")]
         public GameArea area;
         private Transform player;
         public float minDistanceFromPlayer;
+
+        [Header("VELOCITY")]
+        [Range(-180, 180)] public float angle;
+        [Range(0, 360f)] public float spread = 360f;
+        [Range(0, 10)] public float minStrength = 1f;
+        [Range(0, 10)] public float maxStrength = 10f;
+        private float lastStrengthChanged = -1;
 
         #endregion
 
@@ -37,9 +43,9 @@ namespace Assets.Scripts
             if (minDistanceFromPlayer > 0)
             {
                 GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
-                if (playerGO) 
+                if (playerGO)
                     player = playerGO.transform;
-                else 
+                else
                     Debug.LogWarning("No player found.");
             }
 
@@ -50,8 +56,20 @@ namespace Assets.Scripts
                 if (player && Vector3.Distance(position, player.position) < minDistanceFromPlayer)
                     position = (position - player.position).normalized * minDistanceFromPlayer;
 
-                Instantiate(reference, position, transform.rotation);
-                
+                GameObject obj = Instantiate(reference, position, transform.rotation);
+                Rigidbody2D rigidBody = obj.GetComponent<Rigidbody2D>();
+                if (rigidBody)
+                {
+                    float angleDelta = Random.Range(-spread * 0.5f, spread * 0.5f);
+                    float angle_ = angle + angleDelta;
+                    Vector2 direction = new Vector2(
+                        Mathf.Sin(Mathf.Deg2Rad * angle_),
+                        Mathf.Cos(Mathf.Deg2Rad * angle_)
+                    );
+                    direction *= Random.Range(minStrength, maxStrength);
+                    rigidBody.velocity = direction;
+                }
+
                 _remainingObjects--;
 
                 yield return new WaitForSeconds(1 / Random.Range(minRate, maxRate));
@@ -61,9 +79,15 @@ namespace Assets.Scripts
         [UsedImplicitly]
         public void OnValidate()
         {
-            if (Math.Abs(lastRateChanged - minRate) > 0.1 && minRate > maxRate) lastRateChanged = maxRate = minRate;
+            if (Math.Abs(lastRateChanged - minRate) > 0.01 && minRate > maxRate)
+                lastRateChanged = maxRate = minRate;
+            else if (Math.Abs(lastRateChanged - maxRate) > 0.01 && maxRate < minRate)
+                lastRateChanged = minRate = maxRate;
 
-            if (Math.Abs(lastRateChanged - maxRate) > 0.1 && maxRate < minRate) lastRateChanged = minRate = maxRate;
+            if (Math.Abs(lastStrengthChanged - minStrength) > 0.01 && minStrength > maxStrength)
+                lastStrengthChanged = maxStrength = minStrength;
+            else if (Math.Abs(lastStrengthChanged - maxStrength) > 0.01 && maxStrength < minStrength)
+                lastStrengthChanged = minStrength = maxStrength;
         }
     }
 }

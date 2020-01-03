@@ -271,8 +271,12 @@ MonoBehaviour:
   maxRate: 1.7
   number: 5
   infinite: 0
-  area: {fileID: 1178978350}
+  area: {fileID: 0}
   minDistanceFromPlayer: 5
+  angle: 0
+  spread: 30
+  minStrength: 3.37
+  maxStrength: 6.05
 --- !u!4 &448545593
 Transform:
   m_ObjectHideFlags: 0
@@ -932,7 +936,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 1.7695348
-  m_LinearDrag: 1
+  m_LinearDrag: 0.5
   m_AngularDrag: 1
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -951,6 +955,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: asteroid_01_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1813917748266959872, guid: 8038747ba20c3224682269793fda410a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1813917748266959885, guid: 8038747ba20c3224682269793fda410a,
         type: 3}
@@ -1020,6 +1029,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: asteroid_01_32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936707112769887499, guid: f615cb533d30ed34c88eb4c9dd0de9c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5936707112769887606, guid: f615cb533d30ed34c88eb4c9dd0de9c9,
         type: 3}
