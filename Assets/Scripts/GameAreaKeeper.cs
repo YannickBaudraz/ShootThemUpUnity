@@ -8,17 +8,16 @@ namespace Assets.Scripts
     /// </summary>
     /// 
     /// <remarks>
-    /// For exemple : When the object exits the right edge,
-    /// it returns to the left edge.
+    /// For example : When the object exits the right edge, it returns to the left edge.
     /// </remarks>
-    [AddComponentMenu("Yannick Baudraz/Transform Looper")]
+    [AddComponentMenu("Yannick Baudraz/Game Area Keeper")]
     public class GameAreaKeeper : MonoBehaviour
     {
         public GameArea _gameArea;
         private Vector3 _areaSpacePosition;
 
         [UsedImplicitly]
-        private void Update()
+        private void FixedUpdate()
         {
             _areaSpacePosition = _gameArea.transform.InverseTransformPoint(transform.position);
 

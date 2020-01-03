@@ -14,32 +14,42 @@ namespace Assets.Scripts
     [AddComponentMenu("Yannick Baudraz/Simple Ship Controller")]
     public class SimpleShipController : MonoBehaviour
     {
+        #region Attributes
+
+        public float thrustPower = 1;
+        public float steerPower = 1;
+
+        private Rigidbody2D _rigidbody2D;
         private Vector2 _delta = Vector2.zero;
+        private Vector2 _force = Vector2.zero;
+        private float _torque;
+
+        #endregion
+
+        #region Unity methods
 
         [UsedImplicitly]
-        private void Awake() => _delta = Vector2.zero;
+        private void Awake() => _rigidbody2D = GetComponent<Rigidbody2D>();
 
         [UsedImplicitly]
-        private void Update()
+        private void FixedUpdate()
         {
             #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR || REMOTE
             int numberOfTouch = Input.touchCount;
             if (numberOfTouch > 0)
             {
-                if (numberOfTouch == 1)
+                switch (numberOfTouch)
                 {
-                    Touch firstTouch = Input.GetTouch(0);
-                    if (firstTouch.phase == TouchPhase.Moved)
-                        _delta = new Vector2(
-                            firstTouch.deltaPosition.x / (Screen.width * firstTouch.deltaTime),
-                            firstTouch.deltaPosition.y / Screen.height / firstTouch.deltaTime / 2
-                        );
-                }
-                else if (numberOfTouch == 2)
-                {
-                    Touch secondTouch = Input.GetTouch(1);
-                    if (secondTouch.phase == TouchPhase.Moved)
-                        _delta.x = secondTouch.deltaPosition.x / Screen.width / secondTouch.deltaTime * 5;
+                    default:
+                        Touch firstTouch = Input.GetTouch(0);
+                        if (firstTouch.phase == TouchPhase.Moved)
+                            _delta.y = firstTouch.deltaPosition.y / Screen.height / firstTouch.deltaTime / 2;
+                        break;
+                    case 2:
+                        Touch secondTouch = Input.GetTouch(1);
+                        if (secondTouch.phase == TouchPhase.Moved)
+                            _delta.x = secondTouch.deltaPosition.x / Screen.width / secondTouch.deltaTime / 2;
+                        break;
                 }
             }
             else
@@ -51,8 +61,12 @@ namespace Assets.Scripts
             _delta.y = Input.GetAxis("Vertical");
             #endif
 
-            transform.Translate(0, _delta.y, 0);
-            transform.Rotate(0, 0, -_delta.x);
+            _force.y = _delta.y * thrustPower;
+            _torque = -_delta.x * steerPower;
+            _rigidbody2D.AddRelativeForce(_force);
+            _rigidbody2D.AddTorque(_torque);
         }
+
+        #endregion
     }
 }

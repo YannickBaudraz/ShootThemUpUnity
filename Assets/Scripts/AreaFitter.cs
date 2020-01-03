@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    [AddComponentMenu("Yannick Baudraz/ Fit Area To Camera")]
+    [AddComponentMenu("Yannick Baudraz/ Area Fitter")]
     [RequireComponent(typeof(GameArea))]
     public class AreaFitter : MonoBehaviour
     {
